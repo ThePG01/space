@@ -12,7 +12,7 @@ let util = require('util')
 let WAConnection = simple.WAConnection(_WAConnection)
 
 
-global.owner = ['6281515860089'] // Put your number here
+global.owner = ['6287714745440'] // Put your number here
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = { // API Prefix
@@ -85,7 +85,7 @@ conn.handler = async function (m) {
         if (!isNumber(user.lastclaim)) user.lastclaim = 0
       } else global.DATABASE._data.users[m.sender] = {
         exp: 0,
-        limit: 10,
+        limit: 30,
         lastclaim: 0,
       }
       
@@ -263,8 +263,8 @@ conn.handler = async function (m) {
     }
   }
 }
-conn.welcome = 'Hai, @user!\nSelamat datang di grup @subject'
-conn.bye = 'Selamat tinggal @user!'
+conn.welcome = 'Selamat datang, @user di Group yang penuh drama @subject \nNama\nUmur\nAskot\nDoi?\nMoga betah di Group!'
+conn.bye = 'Sayonaraaa👋🏻 @user yang keluar nitip seblaq xixi'
 conn.onAdd = async function ({ m, participants }) {
   let chat = global.DATABASE._data.chats[m.key.remoteJid]
   if (!chat.welcome) return
@@ -335,7 +335,7 @@ global.dfail = (type, m, conn) => {
   let msg = {
     rowner: 'Perintag ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
     owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
-    mods: 'Perintah ini hanya dapat digunakan oleh _*Moderator*_ !',
+    mods: 'Perintah ini hanya dapat digunakan oleh _*Stardust*_ !',
     premium: 'Perintah ini hanya untuk member _*Premium*_ !',
     group: 'Perintah ini hanya dapat digunakan di grup!',
     private: 'Perintah ini hanya dapat digunakan di Chat Pribadi!',
