@@ -25,23 +25,23 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     let uptime = clockString(_uptime)
     let totalreg = Object.keys(global.DATABASE._data.users).length
     let tags = {
-      'main': 'Main',
-      'xp': 'Exp & Limit',
-      'sticker': 'Sticker',
-      'kerang': 'Kerang Ajaib',
-      'quotes': 'Quotes',
-      'admin': 'Admin',
-      'group': 'Group',
-      'internet': 'Internet',
-      'downloader': 'Downloader',
-      'tools': 'Tools',
-      'fun': 'Fun',
-      'jadibot': 'Jadi Bot',
-      'owner': 'Owner',
-      'host': 'Host',
-      'advanced': 'Advanced',
-      'info': 'Info',
-      '': 'No Category',
+      'main': '𝐌𝐚𝐢𝐧',
+      'info': '𝐈𝐧𝐟𝐨',
+      'about': '𝐀𝐛𝐨𝐮𝐭',
+      'xp': '𝐄𝐱𝐩 & 𝐋𝐢𝐦𝐢𝐭',
+      'sticker': '𝐌𝐚𝐤𝐞𝐫',
+      'kerang': '𝐊𝐞𝐫𝐚𝐧𝐠',
+      'quotes': '𝐐𝐮𝐨𝐭𝐞𝐬',
+      'admin': '𝐀𝐝𝐦𝐢𝐧',
+      'group': '𝐆𝐫𝐨𝐮𝐩',
+      'internet': '𝐒𝐞𝐚𝐫𝐜𝐡𝐢𝐧𝐠',
+      'downloader': '𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐫',
+      'tools': '𝐓𝐨𝐨𝐥𝐬',
+      'jadibot': '𝐔𝐬𝐞 𝐁𝐨𝐭',
+      'owner': '𝐎𝐰𝐧𝐞𝐫',
+      'host': '𝐇𝐨𝐬𝐭',
+      'advanced': '𝐀𝐝𝐯𝐚𝐧𝐜𝐞𝐝',
+      '': 'Next Update Wait..',
     }
     for (let plugin of Object.values(global.plugins))
       if (plugin && 'tags' in plugin)
@@ -64,25 +64,25 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     }
     conn.menu = conn.menu ? conn.menu : {}
     let before = conn.menu.before || `
-╭─「 ${conn.getName(conn.user.jid)} 」
-│ Hai, %name!
+╭───── ⚘ {conn.getName(conn.user.jid)} ⚘
 │
-│ *%exp XP*
-│ Tersisa *%limit Limit*
+│⚘ Haee, %name  ᥬ😳᭄
 │
-│ Tanggal: *%week %weton, %date*
-│ Waktu: *%time*
+│⚘ XP: *%exp XP*
+│⚘ Limit: *%limit*
 │
-│ Uptime: *%uptime*
-│ Database: %totalreg nomor
-│ Github:
-│ %github
-╰────
+│⚘ Tanggal: *%week , %date*
+│⚘ Jam: *%time*
+│
+│⚘ Bot Active: *%uptime*
+│⚘ Database User: %totalreg nomor
+│
+╰──────────────
 %readmore`
-    let header = conn.menu.header || '╭─「 %category 」'
-    let body   = conn.menu.body   || '│ • %cmd%islimit'
-    let footer = conn.menu.footer || '╰────\n'
-    let after  = conn.menu.after  || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + `\n*%npmname@^%version*\n\`\`\`\%npmdesc\`\`\``
+    let header = conn.menu.header || '╭────❍` %category'
+    let body   = conn.menu.body   || '│ ⚘ %cmd%islimit'
+    let footer = conn.menu.footer || '╰─────────────ᜰ\n'
+    let after  = conn.menu.after  || (conn.user.jid == global.conn.user.jid ? '' : `by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + `\n*%npmname@^%version*\n\`\`\`\%npmdesc\`\`\``
     let _text  = before + '\n'
     for (let tag in groups) {
       _text += header.replace(/%category/g, tags[tag]) + '\n'
