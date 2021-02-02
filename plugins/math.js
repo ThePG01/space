@@ -3,19 +3,19 @@ let handler  = async (m, { conn, args, usedPrefix }) => {
   if (args.length < 1) return conn.reply(m.chat, `
 Mode: ${Object.keys(modes).join(' | ')}
 
-Contoh penggunaan: ${usedPrefix}math medium
+Contoh penggunaan: ${usedPrefix}math smk
 `.trim(), m)
   let mode = args[0].toLowerCase()
   if (!(mode in modes)) return conn.reply(m.chat, `
 Mode: ${Object.keys(modes).join(' | ')}
 
-Contoh penggunaan: ${usedPrefix}math medium
+Contoh penggunaan: ${usedPrefix}math smk
 `.trim(), m)
   let id = m.chat
   if (id in global.math) return conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', global.math[id][0])
   let math = genMath(mode)
   global.math[id] = [
-    await conn.reply(m.chat, `Berapa hasil dari *${math.str}*?\n\nTimeout: ${(math.time / 1000).toFixed(2)} detik\nBonus Jawaban Benar: ${math.bonus} XP`, m),
+    await conn.reply(m.chat, `Questions: umm.. Berapakah hasil dari *${math.str}*?\n\nWaktu: ${(math.time / 1000).toFixed(2)} detik\nKalo bener dapet XP nihh lumayan buat beli martabucks: ${math.bonus} XP`, m),
     math, 4,
     setTimeout(() => {
       if (global.math[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah ${math.result}`, global.math[id][0])
@@ -30,13 +30,14 @@ handler.command = /^math/i
 module.exports = handler
 
 let modes = {
-  noob: [-3, 3,-3, 3, '+-', 15000, 10],
-  easy: [-10, 10, -10, 10, '*/+-', 20000, 40],
-  medium: [-40, 40, -20, 20, '*/+-', 40000, 150],
-  hard: [-100, 100, -70, 70, '*/+-', 60000, 350],
-  extreme: [-999999, 999999, -999999, 999999, '*/', 99999, 9999],
-  impossible: [-99999999999, 99999999999, -99999999999, 999999999999, '*/', 30000, 35000],
-  impossible2: [-999999999999999, 999999999999999, -999, 999, '/', 30000, 5000]
+  tk: [-3, 3,-3, 3, '+-', 15000, 10],
+  sd: [-10, 10, -10, 10, '*/+-', 20000, 100],
+  smp: [-40, 40, -20, 20, '*/+-', 30000, 250],
+  sma: [-100, 100, -70, 70, '*/+-', 30000, 500],
+  smk: [-999999, 999999, -999999, 999999, '*/', 30000, 5000],
+  kuliah: [-99999999999, 99999999999, -99999999999, 999999999999, '*/', 25000, 25000],
+  s1: [-999999999999999, 999999999999999, -999, 999, '/', 20000, 50000]
+  smart: [-666, 666,-666, 666, '+-', 10000, 123456789],
 } 
 
 let operators = {
