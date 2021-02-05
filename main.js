@@ -423,3 +423,5 @@ global.reload = (event, filename) => {
 }
 Object.freeze(global.reload)
 fs.watch(path.join(__dirname, 'plugins'), global.reload)
+
+process.on('exit', () => global.DATABASE.save())
