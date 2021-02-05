@@ -192,10 +192,10 @@ conn.handler = async function (m) {
 
         m.isCommand = true
         let xp = 'exp' in plugin ? parseInt(plugin.exp) : 9 // XP Earning per command
-        if (xp > 99) m.reply('Ngecheat -_-') // Hehehe
+        if (xp > 99) m.reply('Ngecit -_-') // Hehehe
         else m.exp += xp
         if (!isPrems && global.DATABASE._data.users[m.sender].limit < m.limit * 1 && plugin.limit) {
-          this.reply(m.chat, `Limit kamu habis, silahkan beli melalui *${usedPrefix}buy*`, m)
+          this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
           continue // Limit habis
         }
         try {
@@ -273,9 +273,10 @@ conn.onAdd = async function ({ m, participants }) {
   let chat = global.DATABASE._data.chats[m.key.remoteJid]
   if (!chat.welcome) return
   for (let user of participants) {
-    let pp = fs.readFileSync('./src/avatar_contact.png')
+    let pp = './src/avatar_contact.png'
     try {
-      pp = await this.getProfilePicture(user).catch(() => {})
+      pp = await this.getProfilePicture(user)
+    } catch (e) {
     } finally {
       let text = (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@user', '@' + user.split('@')[0]).replace('@subject', this.getName(m.key.remoteJid))
       this.sendFile(m.key.remoteJid, pp, 'pp.jpg', text, m, false, {
@@ -292,9 +293,10 @@ conn.onLeave = async function  ({ m, participants }) {
   if (!chat.welcome) return
   for (let user of participants) {
     if (this.user.jid == user) continue
-    let pp = fs.readFileSync('./src/avatar_contact.png')
+    let pp = './src/avatar_contact.png'
     try {
-      pp = await this.getProfilePicture(user).catch(() => {})
+      pp = await this.getProfilePicture(user)
+    } catch (e) {
     } finally {
       let text = (chat.sBye || this.bye || conn.bye || 'Bye, @user!').replace('@user', '@' + user.split('@')[0])
       this.sendFile(m.key.remoteJid, pp, 'pp.jpg', text, m, false, {
@@ -307,6 +309,7 @@ conn.onLeave = async function  ({ m, participants }) {
 }
 
 conn.onDelete = async function (m) {
+  if (m.key.fromMe) return
   let chat = global.DATABASE._data.chats[m.key.remoteJid]
   if (chat.delete) return
   await this.reply(m.key.remoteJid, `
