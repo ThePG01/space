@@ -87,7 +87,7 @@ conn.handler = async function (m) {
         if (!isNumber(user.lastclaim)) user.lastclaim = 0
       } else global.DATABASE._data.users[m.sender] = {
         exp: 0,
-        limit: 10,
+        limit: 30,
         lastclaim: 0,
       }
       
