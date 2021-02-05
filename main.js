@@ -1,7 +1,8 @@
-let { WAConnection: _WAConnection, WA_MESSAGE_STUB_TYPES } = require('@adiwajshing/baileys')
+mur  { WAConnection: _WAConnection, WA_MESSAGE_STUB_TYPES } = require('@adiwajshing/baileys')
 let { generate } = require('qrcode-terminal')
 let qrcode = require('qrcode')
 let simple = require('./lib/simple')
+let logs = require('./lib/logs')
 let yargs = require('yargs/yargs')
 let syntaxerror = require('syntax-error')
 let fetch = require('node-fetch')
@@ -12,7 +13,7 @@ let util = require('util')
 let WAConnection = simple.WAConnection(_WAConnection)
 
 
-global.owner = ['6287714745440'] // Put your number here
+global.owner = ['6281515860089'] // Put your number here
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = { // API Prefix
@@ -22,14 +23,15 @@ global.APIs = { // API Prefix
 }
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-  'https://api.xteam.xyz': 'xteamapi'
+  'https://api.xteam.xyz': 'test'
 }
 
 
-global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + Object.entries({...query, [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name]}).map(([key, val]) => encodeURIComponent(key) + (val || val === false ? '=' + encodeURIComponent(val) : '')).join('&') : '')
+global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + Object.entries({...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name]} : {})}).map(([key, val]) => encodeURIComponent(key) + (val || val === false ? '=' + encodeURIComponent(val) : '')).join('&') : '')
 global.timestamp = {
   start: new Date
 }
+global.LOGGER = logs()
 const PORT = process.env.PORT || 3000
 let opts = yargs(process.argv.slice(2)).exitProcess(false).parse()
 global.opts = Object.freeze({...opts})
@@ -85,7 +87,7 @@ conn.handler = async function (m) {
         if (!isNumber(user.lastclaim)) user.lastclaim = 0
       } else global.DATABASE._data.users[m.sender] = {
         exp: 0,
-        limit: 30,
+        limit: 10,
         lastclaim: 0,
       }
       
@@ -120,6 +122,7 @@ conn.handler = async function (m) {
   	  if ((usedPrefix = (_prefix.exec(m.text) || '')[0])) {
         let noPrefix = m.text.replace(usedPrefix, '')
   		  let [command, ...args] = noPrefix.trim().split` `.filter(v=>v)
+        args = args || []
         let _args = noPrefix.trim().split` `.slice(1)
         let text = _args.join` `
   		  command = (command || '').toLowerCase()
@@ -323,19 +326,25 @@ conn.on('message-delete', conn.onDelete)
 conn.on('group-add', conn.onAdd)
 conn.on('group-leave', conn.onLeave)
 conn.on('error', conn.logger.error)
-conn.on('close', async () => {
-  if (conn.state == 'close') {
-    await conn.loadAuthInfo(authFile)
-    await conn.connect()
-    global.timestamp.connect = new Date
-  }
+conn.on('close', () => {
+  setTimeout(async () => {
+    try {
+      if (conn.state === 'close') {
+        await conn.loadAuthInfo(authFile)
+        await conn.connect()
+        global.timestamp.connect = new Date
+      }
+    } catch (e) {
+      conn.logger.error(e)
+    }
+  }, 5000)
 })
 
 global.dfail = (type, m, conn) => {
   let msg = {
     rowner: 'Perintag ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
     owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
-    mods: 'Perintah ini hanya dapat digunakan oleh _*Stardust*_ !',
+    mods: 'Perintah ini hanya dapat digunakan oleh _*Moderator*_ !',
     premium: 'Perintah ini hanya untuk member _*Premium*_ !',
     group: 'Perintah ini hanya dapat digunakan di grup!',
     private: 'Perintah ini hanya dapat digunakan di Chat Pribadi!',
@@ -414,5 +423,3 @@ global.reload = (event, filename) => {
 }
 Object.freeze(global.reload)
 fs.watch(path.join(__dirname, 'plugins'), global.reload)
-
-process.on('exit', () => global.DATABASE.save())
