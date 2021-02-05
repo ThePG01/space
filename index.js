@@ -9,7 +9,7 @@ CFonts.say('MLSPACETOON\nTEAM TERMUX', {
   align: 'center',
   gradient: ['red', 'magenta']
 })
-CFonts.say(`'${package.name}' By @${package.author.name || package.author}`, {
+CFonts.say(`'${package.name}' By @stardustlrlr`, {
   font: 'console',
   align: 'center',
   gradient: ['red', 'yellow']
@@ -31,6 +31,9 @@ function start(file) {
       case 'reset':
         p.kill()
         start.apply(this, arguments)
+        break
+      case 'uptime':
+        p.send(process.uptime())
         break
     }
   })
