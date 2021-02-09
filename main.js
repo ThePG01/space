@@ -11,10 +11,12 @@ let fs = require('fs')
 let path = require('path')
 let util = require('util')
 let { spawnSync } = require('child_process')
+let Readline = require('readline')
+let rl = Readline.createInterface(process.stdin, process.stdout)
 let WAConnection = simple.WAConnection(_WAConnection)
 
 
-global.owner = ['6287714745440'] // Put your number here
+global.owner = ['6281515860089'] // Put your number here
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = { // API Prefix
@@ -64,7 +66,7 @@ if (opts['big-qr'] || opts['server']) conn.on('qr', qr => generate(qr, { small: 
 if (opts['server']) conn.on('qr', qr => { global.qr = qr })
 conn.on('credentials-updated', () => fs.writeFileSync(authFile, JSON.stringify(conn.base64EncodedAuthInfo())))
 let lastJSON = JSON.stringify(global.DATABASE.data)
-setInterval(async () => {
+if (!opts['test']) setInterval(() => {
   conn.logger.info('Saving database . . .')
   if (JSON.stringify(global.DATABASE.data) == lastJSON) conn.logger.info('Database is up to date')
   else {
@@ -84,11 +86,11 @@ conn.handler = async function (m) {
       let user
       if (user = global.DATABASE._data.users[m.sender]) {
         if (!isNumber(user.exp)) user.exp = 0
-        if (!isNumber(user.limit)) user.limit = 30
+        if (!isNumber(user.limit)) user.limit = 10
         if (!isNumber(user.lastclaim)) user.lastclaim = 0
       } else global.DATABASE._data.users[m.sender] = {
         exp: 0,
-        limit: 30,
+        limit: 10,
         lastclaim: 0,
       }
       
@@ -220,7 +222,7 @@ conn.handler = async function (m) {
           // Error occured
           m.error = e
           console.log(e)
-          m.reply(util.format(e))
+          if (e) m.reply(util.format(e))
         } finally {
           if (m.limit) m.reply(+ m.limit + ' Limit terpakai')
         }
@@ -364,6 +366,7 @@ if (opts['test']) {
     name: 'test',
     phone: {}
   }
+  conn.chats
   conn.prepareMessageMedia = (buffer, mediaType, options = {}) => {
     return {
       [mediaType]: {
@@ -387,11 +390,11 @@ if (opts['test']) {
     if (type == 'conversation') waMessage.key.id = require('crypto').randomBytes(16).toString('hex').toUpperCase()
     conn.emit('message-new', waMessage)
   }
-  process.stdin.on('data', chunk => conn.sendMessage('123@s.whatsapp.net', chunk.toString().trimEnd(), 'conversation'))
+  rl.on('line', line => conn.sendMessage('123@s.whatsapp.net', line.trim(), 'conversation'))
 } else {
-  process.stdin.on('data', chunk => {
+  rl.on('line', line => {
     global.DATABASE.save()
-    process.send(chunk.toString().trimEnd())
+    process.send(line.trim())
   })
   conn.connect().then(() => {
     global.timestamp.connect = new Date
@@ -453,4 +456,3 @@ Object.freeze(global.support)
 if (!global.support.ffmpeg) conn.logger.warn('Please install ffmpeg for sending videos (pkg install ffmpeg)')
 if (!global.support.ffmpegWebp) conn.logger.warn('Stickers may not animated without libwebp on ffmpeg (--emable-ibwebp while compiling ffmpeg)')
 if (!global.support.convert) conn.logger.warn('Stickers may not work without imagemagick if libwebp on ffmpeg doesnt isntalled (pkg install imagemagick)')
-
