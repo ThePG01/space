@@ -36,7 +36,6 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     let tags = {
       'main': '𝐌𝐚𝐢𝐧',
       'info': '𝐈𝐧𝐟𝐨',
-      'about': '𝐀𝐛𝐨𝐮𝐭',
       'xp': '𝐄𝐱𝐩 & 𝐋𝐢𝐦𝐢𝐭',
       'sticker': '𝐌𝐚𝐤𝐞𝐫',
       'kerang': '𝐊𝐞𝐫𝐚𝐧𝐠',
@@ -51,7 +50,7 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
       'owner': '𝐎𝐰𝐧𝐞𝐫',
       'host': '𝐇𝐨𝐬𝐭',
       'advanced': '𝐀𝐝𝐯𝐚𝐧𝐜𝐞𝐝',
-      '': 'Next Update Wait..',
+      '': 'Next Update ComingSoon..',
     }
     for (let plugin of Object.values(global.plugins))
       if (plugin && 'tags' in plugin)
@@ -76,16 +75,16 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     let before = conn.menu.before || `
 ╭────「 ${conn.getName(conn.user.jid)} 」
 │
-│⚘ Haee, %name  ᥬ😳᭄
+│ᜰ Heyy, %name  ᥬ😳᭄
 │
-│⚘ XP: *%exp XP*
-│⚘ Limit: *%limit*
+│ᜰ XP: *%exp XP*
+│ᜰ Limit: *%limit*
 │
-│⚘ Tanggal: *%week , %date*
-│⚘ Jam: *%time*
+│ᜰ Tanggal: *%week , %date*
+│ᜰ Jam: *%time*
 │
-│⚘ Bot Active: *%uptime*
-│⚘ Database User: %totalreg nomor
+│ᜰ Bot Active: *%uptime*
+│ᜰ Database User: %totalreg users
 │
 ╰──────────────
 %readmore`
@@ -134,7 +133,7 @@ handler.admin = false
 handler.botAdmin = false
 
 handler.fail = null
-handler.exp = 3
+handler.exp = 5
 
 module.exports = handler
 
