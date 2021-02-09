@@ -7,10 +7,7 @@ const { MessageType } = require('@adiwajshing/baileys')
 
 let handler  = async (m, { conn, text }) => {
   if (text) {
-    let res = await fetch(global.API('xteam', '/ttp', { file: '', text }))
-    let img = await res.buffer()
-    if (!img) throw img
-    let stiker = await sticker(img)
+    let stiker = await sticker(null, global.API('xteam', '/ttp', { file: '', text }))
     conn.sendMessage(m.chat, stiker, MessageType.sticker, {
       quoted: m
     })
@@ -38,6 +35,7 @@ function sticker(img, url) {
     try {
       if (url) {
         let res = await fetch(url)
+        if (res.status !== 200) throw await res.text()
         img = await res.buffer()
       }
       let inp = path.join(tmp, +new Date + '.jpeg')
@@ -56,9 +54,11 @@ function sticker(img, url) {
         spawn('convert', [png, out])
         .on('error', reject)
         .on('close', () => {
-          fs.unlinkSync(png)
-          resolve(fs.readFileSync(out))
-          fs.unlinkSync(out)
+          try {
+            fs.unlinkSync(png)
+            resolve(fs.readFileSync(out))
+            if (fs.existSync(out)) fs.unlinkSync(out)
+          } catch (e) { reject(e) }
         })
       })
     } catch (e) {
