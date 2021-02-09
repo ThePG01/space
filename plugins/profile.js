@@ -10,10 +10,13 @@ let handler = async (m, { conn }) => {
     let name = conn.getName(who)
     let about = (await conn.getStatus(who)).status
     let str = `
-Name: ${name} (@${who.replace(/@.+/, '')})
-About: ${about}
-Number: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
-Link: https://wa.me/${who.split`@`[0]}
+ᴺᵃᵐᵃ: ${name} (@${who.replace(/@.+/, '')})
+
+ᴰᵉˢᵏʳⁱᵖˢⁱ: ${about}
+
+ᴺᵘᵐᵇᵉʳ: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
+
+ᴸⁱⁿᵏ: https://wa.me/${who.split`@`[0]}
 `.trim()
     let mentionedJid = [who]
     conn.sendFile(m.chat, pp, 'pp.jpg', str, m, false, { contextInfo: { mentionedJid }})
