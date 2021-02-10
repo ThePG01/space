@@ -13,6 +13,7 @@ _Recommended Termux_
 > cd space
 > npm install
 ```
+---
 ###### Run
 ```bash
 > node . [<session name>] (session name is optional)
@@ -30,6 +31,7 @@ _Recommended Termux_
 > cd space
 > npm install
 ```
+---
 ###### Start
 ```bash
 > node index.js
