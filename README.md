@@ -1,4 +1,4 @@
-## Space Bot
+## Mlspacetoon Bot
 
 _Recommended Termux_
 
@@ -30,7 +30,7 @@ _Recommended Termux_
 > cd space
 > npm install
 ```
-###### Run
+###### Start
 ```bash
 > node index.js
 ```
