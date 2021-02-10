@@ -35,7 +35,7 @@ _Recommended Termux_
 > node index.js
 ```
 ---
-###### Thanks 4
+###### Thanks 4 & Made With By
 
 | [Nurutomo](https://github.com/Nurutomo) |
 | :-: |
