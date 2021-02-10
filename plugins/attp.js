@@ -3,7 +3,7 @@ const FormData = require('form-data')
 const { MessageType } = require('@adiwajshing/baileys')
 
 let handler  = async (m, { conn, text }) => {
-  if (text) conn.sendFile(m.chat, global.API('xteam', '/ttp', { file: '', text }), 'attp.webp', '', m, false, { asSticker: true })
+  if (text) conn.sendFile(m.chat, global.API('xteam', '/attp', { file: '', text }), 'attp.webp', '', m, false, { asSticker: true })
   else throw 'Uhm...Teksnya?'
 }
 handler.help = ['attp <teks>']
@@ -19,6 +19,6 @@ handler.admin = false
 handler.botAdmin = false
 
 handler.fail = null
+handler.limit = true
 
 module.exports = handler
-
