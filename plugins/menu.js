@@ -87,12 +87,6 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
 │⇂
 │↳
 ╰──────────────∗
-%readmore
-Terpesonaaa
-%readmore
-Akuuu terpesonaaa
-%readmore
-Akskskaak udah ah cape;v
 %readmore`
     let header = conn.menu.header || '╭────ᱬ` %category' ᱦ
     let body   = conn.menu.body   || '│ ⌬⇢ %cmd%islimit'
