@@ -74,22 +74,24 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     conn.menu = conn.menu ? conn.menu : {}
     let before = conn.menu.before || `
 ╭────「 ${conn.getName(conn.user.jid)} 」
-│
-│ᜰ Heyy, %name  ᥬ😳᭄
-│
-│ᜰ XP: *%exp XP*
-│ᜰ Limit: *%limit*
-│
-│ᜰ Tanggal: *%week , %date*
-│ᜰ Jam: *%time*
-│
-│ᜰ Bot Active: *%uptime*
-│ᜰ Database User: %totalreg users
-│
-╰──────────────
+│↱
+│↾  ⌬ ꃅꍏꀤꀤ, %name  ᥬ😳᭄
+│↾  
+│↱ ⌬ 𝕩𝕡 : *%exp XP*
+│↳ ⌬ 𝔩L𝔦𝔪𝔦𝔱 : *%limit*
+│⇌⇋⇌⇋⇌⇋⇌⇋⇌⇋⇌⇋⇌⇋⇌⇋
+│↱ ⌬ ꓄ꋬꋊꍌꍌꋬ꒒: *%week , %date*
+│↳ ⌬ ᒍᗩᗰ: *%time*
+│⇂
+│↱ ⌬ ฿Ø₮ ₳₵₮łVɆ: *%uptime*
+│↳ ⌬ D͛a͛t͛a͛b͛a͛s͛e͛ U͛s͛e͛r͛s͛: %totalreg users
+│⇂
+│⇂
+│↳
+╰──────────────∗
 %readmore`
     let header = conn.menu.header || '╭────❍` %category'
-    let body   = conn.menu.body   || '│ ⚘ %cmd%islimit'
+    let body   = conn.menu.body   || '│ ⌬⇢ %cmd%islimit'
     let footer = conn.menu.footer || '╰─────────────ᜰ\n'
     let after  = conn.menu.after  || (conn.user.jid == global.conn.user.jid ? '' : `by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + `\n*%npmname@^%version*\n\`\`\`\%npmdesc\`\`\``
     let _text  = before + '\n'
