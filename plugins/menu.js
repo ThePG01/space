@@ -79,13 +79,17 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
 │↱ ⌬ 𝕩𝕡 : *%exp XP*
 │↳ ⌬ 𝔩L𝔦𝔪𝔦𝔱 : *%limit*
 │↾
-│↱ ⌬ ꓄ꋬꋊꍌꍌꋬ꒒: *%week , %date*
-│↳ ⌬ ᒍᗩᗰ: *%time*
+│↱ ⌬ ꓄ꋬꋊꍌꍌꋬ꒒ : *%week , %date*
+│↳ ⌬ ᒍᗩᗰ : *%time*
 │⇂
-│↱ ⌬ ฿Ø₮ ₳₵₮łVɆ: *%uptime*
-│↳ ⌬ D͛a͛t͛a͛b͛a͛s͛e͛ U͛s͛e͛r͛s͛: %totalreg users
+│↱ ⌬ ฿Ø₮ ₳₵₮łVɆ : *%uptime*
+│↳ ⌬ D͛a͛t͛a͛b͛a͛s͛e͛ U͛s͛e͛r͛s͛ : %totalreg users
 │⇂
 │↳
+╰──────────────∗
+╭────᯽ sosmed 
+│↱ https://youtube.com/channel/UCMR8fn-Y89pi0AbbQnfnDEw
+│↳ instagram.com/stardustlrlr
 ╰──────────────∗
 %readmore`
     let header = conn.menu.header || '╭────ᱬ` %category' ᱦ
